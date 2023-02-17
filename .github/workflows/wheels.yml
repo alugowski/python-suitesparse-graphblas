@@ -54,7 +54,7 @@ jobs:
             manylinux_image: manylinux2014
 
             # Use x86 macOS runner to build both x86 and ARM. GitHub does not offer M1/M2 yet (only self-hosted).
-          - os: macos-latest
+          - os: macos-12
             python-version: "3.8"
             platform_id: macosx_x86_64
 
@@ -69,11 +69,15 @@ jobs:
 
       - name: Install tools (macOS)
         if: contains(matrix.os, 'macos')
-        # * install coreutils which includes `nproc` used by `make -j` in suitesparse.sh
-        # * GitHub actions comes with libomp already installed. It's listed here to explicitly list this requirement.
+        # Install coreutils which includes `nproc` used by `make -j` in suitesparse.sh
+        #
+        # GitHub actions comes with libomp already installed, but for its native arch only. Must build universal one
+        # manually so that both x86 and arm builds can be built.
         run: |
           brew install coreutils
           brew install libomp
+          sh make_universal2_monterey_libomp_dylib.sh
+          cp -f libomp.dylib $(brew --prefix libomp)/lib
 
       - name: Build Wheels
         env:
@@ -87,7 +91,7 @@ jobs:
           CIBW_ENVIRONMENT_WINDOWS: CMAKE_GNUtoMS=ON GRAPHBLAS_PREFIX="C:/GraphBLAS"
 
           # macOS libomp requires special configs. BREW_LIBOMP=1 asks suitesparse.sh to include them.
-          CIBW_ENVIRONMENT_MACOS: BREW_LIBOMP="1"
+          CIBW_ENVIRONMENT_MACOS: BREW_LIBOMP="1" CFLAGS="-arch x86_64 -arch arm64"
 
           # Uncomment to only build CPython wheels
           # CIBW_BUILD: "cp*"
