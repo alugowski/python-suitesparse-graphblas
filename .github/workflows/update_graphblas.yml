@@ -10,13 +10,19 @@ on:
 #  schedule:
 #    - cron:  '0 0 * * *'
 
+# Also must explicitly allow GitHub Actions to create pull requests.
+# This setting can be found in a repository's settings under Actions > General > Workflow permissions.
+# https://github.com/peter-evans/create-pull-request#workflow-permissions
 permissions:
   contents: write
   pull-requests: write
 
+if: github.repository == 'GraphBLAS/python-suitesparse-graphblas' || github.repository == 'alugowski/python-suitesparse-graphblas'
+
 jobs:
   gb_version_check:
     name: Check for GraphBLAS update
+#    if: github.repository == 'GraphBLAS/python-suitesparse-graphblas'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
