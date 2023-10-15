@@ -34,7 +34,7 @@ jobs:
           echo "GB_VERSION=$(cat GB_VERSION.txt)" >> $GITHUB_ENV
           if [[ -n "$(git diff --exit-code GB_VERSION.txt)" ]]; then
             echo "There is a new version: $(cat GB_VERSION.txt)"
-            if [[ -z "$(git branch --list auto_update_gb_version)" ]]; then
+            if [[ -z "$(git branch -r --list origin/auto_update_gb_version)" ]]; then
                 echo "No existing update branches found"
                 git branch --list
                 echo "CREATE_PR=1" >> $GITHUB_ENV
