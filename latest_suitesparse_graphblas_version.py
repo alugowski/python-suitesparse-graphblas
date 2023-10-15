@@ -8,7 +8,7 @@ from urllib.error import URLError
 from urllib.request import urlopen
 
 # fetch release data from GraphBLAS repo
-for retry in range(5):
+for _ in range(5):
     try:
         with urlopen(
             "https://api.github.com/repos/DrTimothyAldenDavis/GraphBLAS/releases/latest"
