@@ -4,6 +4,7 @@ on:
   # Workflow must run at least once to appear in workflows list. Easy way to do that is to use a push trigger.
   push:
 
+  # Workflow must exist in main branch for workflow dispatch option to appear
   workflow_dispatch:
 
   # When happy with this then enable cron to check for updates once a day:

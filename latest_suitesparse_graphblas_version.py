@@ -11,7 +11,7 @@ from urllib.request import urlopen
 for retry in range(5):
     try:
         with urlopen(
-                "https://api.github.com/repos/DrTimothyAldenDavis/GraphBLAS/releases/latest"
+            "https://api.github.com/repos/DrTimothyAldenDavis/GraphBLAS/releases/latest"
         ) as url:
             latest_release = json.load(url)
             break
