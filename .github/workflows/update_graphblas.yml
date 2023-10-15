@@ -3,7 +3,9 @@ name: Check for GraphBLAS updates
 on:
   # Workflow must run at least once to appear in workflows list. Easy way to do that is to use a push trigger.
   push:
+
   workflow_dispatch:
+
   # When happy with this then enable cron to check for updates once a day:
 #  schedule:
 #    - cron:  '0 0 * * *'

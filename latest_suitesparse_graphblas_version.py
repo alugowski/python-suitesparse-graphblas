@@ -10,12 +10,15 @@ from urllib.request import urlopen
 # fetch release data from GraphBLAS repo
 for retry in range(5):
     try:
-        with urlopen("https://api.github.com/repos/DrTimothyAldenDavis/GraphBLAS/releases/latest") as url:
+        with urlopen(
+                "https://api.github.com/repos/DrTimothyAldenDavis/GraphBLAS/releases/latest"
+        ) as url:
             latest_release = json.load(url)
             break
     except URLError:
         # sleep before trying again
         from time import sleep
+
         sleep(1)
 
 version = latest_release["tag_name"].lstrip("v")
