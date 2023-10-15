@@ -4,8 +4,8 @@ https://github.com/DrTimothyAldenDavis/GraphBLAS
 """
 
 import json
-from urllib.request import urlopen
 from urllib.error import URLError
+from urllib.request import urlopen
 
 # fetch release data from GraphBLAS repo
 for retry in range(5):
